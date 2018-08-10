@@ -121,7 +121,12 @@
 <meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/second.png">
 <meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/third.png">
 <meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/fourth.png">
-<meta property="og:updated_time" content="2018-08-10T01:30:28.967Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/fifth.png">
+<meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/">
+<meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/">
+<meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/">
+<meta property="og:image" content="http://yoursite.com/2018/08/10/TopCoder-616-640/">
+<meta property="og:updated_time" content="2018-08-10T03:26:21.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TopCoder 616-640 Tutorial">
 <meta name="twitter:description" content="The Solutions and Tutorial of TopCoder SRM 616-640 (div.1+div.2)">
@@ -350,7 +355,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T09:30:28+08:00">2018-08-10</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T11:26:21+08:00">2018-08-10</time>
             
 
             
@@ -443,18 +448,39 @@
 </blockquote>
 <p>Hint 2:</p>
 <blockquote>
-<p>考虑预处理每个点为$L$型转折点的最长伸长长度, 枚举两个$L$型的转折点.</p>
-<p>此时有四种情况<strong>(红色的边为限制边)</strong>:</p>
+<p>考虑枚举两个$L$型的转折点.</p>
+<p>此时有五种情况<strong>(红色的边为限制边)</strong>:</p>
 </blockquote>
-<p><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/first.png" alt="1"><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/second.png" alt="2"><br><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/third.png" alt="3"><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/fourth.png" alt="4"></p>
+<p><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/first.png" alt="1"> <img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/second.png" alt="2"><br><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/third.png" alt="3"> <img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/fourth.png" alt="4"><br><img src="/2018/08/10/TopCoder-616-640/SRM-616/div.2/T3/fifth.png" alt="5"></p>
+<blockquote>
+<p>然后$n^4$$AC$.</p>
+</blockquote>
+<p>Hint 3(踩标算):</p>
+<blockquote>
+<p>考虑所有方案减去不合法的方案数, 仅有四种不合法状态:</p>
+</blockquote>
+<p><img src="/2018/08/10/TopCoder-616-640/" alt=""> <img src="/2018/08/10/TopCoder-616-640/" alt=""><br><img src="/2018/08/10/TopCoder-616-640/" alt=""> <img src="/2018/08/10/TopCoder-616-640/" alt=""></p>
 <h1 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h1><h2 id="SRM-616-div-2-2"><a href="#SRM-616-div-2-2" class="headerlink" title="SRM 616 div.2"></a>SRM 616 div.2</h2><h3 id="T3-TwoLLogo-2"><a href="#T3-TwoLLogo-2" class="headerlink" title="T3: TwoLLogo"></a>T3: TwoLLogo</h3><ul>
 <li>—&gt;<a href="#T3-TwoLLogo">return Meaning</a></li>
 <li>—&gt;<a href="#T3-TwoLLogo-1">return Hint</a></li>
 </ul>
+<p>$n^4$标算(Hint-2):</p>
 <blockquote>
-<p>passed</p>
+<p>我们考虑预处理以当前点为中转点, 向上和向右最长延伸长度$(up[][],right[][])$.<br>设第一个$L$型为($x_0$,$y_0$), 第二个$L$型为($x_1$,$y_1$).</p>
+<ol>
+<li>$answer$直接加上<code>up[x0][y0]×right[x0][y0]×up[x1][y1]×right[x1][y1]</code>即可.</li>
+<li>由于<code>up[x0][y0]</code>有可能被($x_1$,$y_1$)挡住, 所以<code>up[x0][y0]</code>要与$x_1$-$x_0$-1取$min$.</li>
+<li>同理<code>2</code>.</li>
+<li>随便分类搞一下, 注意4-5之间的重叠方案.</li>
+<li>与<code>4</code>一起处理.</li>
+</ol>
+</blockquote>
+<p>Code:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 35</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> M(_) memset(_,0,sizeof _)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoLLogo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">countWays</span><span class="params">( <span class="built_in">vector</span> &lt;<span class="built_in">string</span>&gt; grid )</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> up[N][N],ri[N][N],mp[N][N];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> TwoLLogo::countWays(<span class="built_in">vector</span> &lt;<span class="built_in">string</span>&gt; grid) &#123;</span><br><span class="line">	<span class="keyword">int</span> n=grid.size(),m=grid.begin()-&gt;size();</span><br><span class="line">	M(up);M(ri);<span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;++j)</span><br><span class="line">			mp[i+<span class="number">1</span>][j+<span class="number">1</span>]=grid[i][j]==<span class="string">'.'</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(!mp[i][j])<span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=i<span class="number">-1</span>;k&amp;&amp;mp[k][j];--k)</span><br><span class="line">				++up[i][j];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=j+<span class="number">1</span>;k&lt;=m&amp;&amp;mp[i][k];++k)</span><br><span class="line">				++ri[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x0=<span class="number">1</span>;x0&lt;=n;++x0)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> y0=<span class="number">1</span>;y0&lt;=m;++y0)</span><br><span class="line">			<span class="keyword">if</span>(mp[x0][y0])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="comment">//处理2, 使剩下来的y1&gt;y0.</span></span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> x1=x0+<span class="number">1</span>;x1&lt;=n;++x1)</span><br><span class="line">					<span class="keyword">if</span>(mp[x1][y0])</span><br><span class="line">						ans+=<span class="number">1l</span>l*up[x0][y0]*ri[x0][y0]*min(up[x1][y0],x1-x0<span class="number">-1</span>)*ri[x1][y0];</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> x1=<span class="number">1</span>;x1&lt;=n;++x1)</span><br><span class="line">					<span class="keyword">for</span>(<span class="keyword">int</span> y1=y0+<span class="number">1</span>;y1&lt;=m;++y1)</span><br><span class="line">						<span class="keyword">if</span>(mp[x1][y1])</span><br><span class="line">						&#123;</span><br><span class="line">							<span class="comment">//3.</span></span><br><span class="line">							<span class="keyword">if</span>(x0==x1)ans+=<span class="number">1l</span>l*up[x0][y0]*min(ri[x0][y0],y1-y0<span class="number">-1</span>)*up[x1][y1]*ri[x1][y1];<span class="keyword">else</span></span><br><span class="line">							<span class="comment">//1.</span></span><br><span class="line">							<span class="keyword">if</span>(x0&gt;x1)ans+=<span class="number">1l</span>l*up[x0][y0]*ri[x0][y0]*up[x1][y1]*ri[x1][y1];<span class="keyword">else</span></span><br><span class="line">							<span class="comment">//4-5.</span></span><br><span class="line">							ans+=<span class="number">1l</span>l*up[x0][y0]*ri[x1][y1]*(<span class="number">1l</span>l*min(y1-y0<span class="number">-1</span>,ri[x0][y0])*max(up[x1][y1]-x1+x0+<span class="number">1</span>,<span class="number">0</span>)+<span class="number">1l</span>l*ri[x0][y0]*min(x1-x0<span class="number">-1</span>,up[x1][y1]));</span><br><span class="line">						&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>$n^2$踩标算(Hint-3):</p>
+<blockquote>
 </blockquote>
 <p>Code:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<hr>
 
       
     </div>
